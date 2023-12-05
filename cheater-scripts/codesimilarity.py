@@ -25,7 +25,10 @@ def calculate_similarity(files):
     for file in files:
         with open(file, 'r') as f:
             content = f.read()
-            content = re.sub(re.compile("/\*.*?\*/",re.DOTALL ) ,"" ,content) # Removes all /* .. */ comments 
+            # Remove all /* ... */ comments
+            content = re.sub(re.compile("/\*.*?\*/", re.DOTALL), "", content)
+            # Remove all // ... comments
+            content = re.sub(re.compile("//.*?$", re.MULTILINE), "", content)
             # Other ideas: Remove // comments, Normalize variables, etc...
             file_to_text[file] = content
 
